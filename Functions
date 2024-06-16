@@ -1,0 +1,78 @@
+def watering():
+	waterLevel = get_water()
+	if waterLevel <= 0.2:
+		use_item(Items.Water_Tank)
+		
+def trader():
+	#for this to work, you need to define gridSizeX & gridSizeY	
+	while num_items(Items.Carrot_Seed) <= 8:
+		trade(Items.Carrot_Seed)
+	while num_items(Items.Empty_Tank) <= gridSizeX * gridSizeX:
+		trade(Items.Empty_Tank)
+		
+def reset():
+	if get_pos_x() != 0:
+		clear()
+		for i in range(gridSizeX - 1):
+			move(North)
+	elif get_pos_y() != 3:
+		clear()
+		for i in range(gridSizeY - 1):
+			move(North)
+			
+def carrotRange():
+	if get_pos_x() <= 1 and get_pos_y() >= 2: 		
+		return True
+def carrot():
+	if carrotRange():
+		if get_ground_type() != Grounds.Soil:
+			till()		
+			plant(Entities.Carrots)		
+		elif get_entity_type() == None:
+			plant(Entities.Carrots)
+		elif can_harvest():
+			harvest()
+			plant(Entities.Carrots)
+		
+		
+def bushRange():
+	if get_pos_x() <=1 and get_pos_y() <= 1:
+		return True
+		
+def bush():
+	if bushRange():
+		if get_entity_type() == Entities.Grass:
+			harvest()
+			plant(Entities.Bush)
+		elif can_harvest():
+			harvest()
+			plant(Entities.Bush)
+		else:	
+			plant(Entities.Bush)
+		
+def pumpkinRange():
+	if get_pos_x() >= 2 and get_pos_y() >= 2:
+		return True
+		
+def pumpkin():
+	if get_ground_type() != Grounds.Soil:
+		till()		
+		plant(Entities.Pumpkin)		
+	elif get_entity_type() == None:
+		plant(Entities.Pumpkin)
+	elif can_harvest() == True and pumpkinCounter == (pumpkinX * pumpkinY) - 1: 
+		harvest()
+		plant(Entities.Pumpkin)
+		return True
+ #put this in the While loop
+		#if pumpkin():
+		#	pumpkinCounter = 0
+		#else:
+		#	pumpkinCounter += 1
+		
+# put this in line with the for i loop / WILL NEED TO DECLARE pumpkinSwitch as 0
+		#if pumpkinSwitch >= 2:
+		#	pumpkinCounter = 0
+		#	pumpkinSwitch = 0
+		#else:
+		#	pumpkinSwitch += 1 
