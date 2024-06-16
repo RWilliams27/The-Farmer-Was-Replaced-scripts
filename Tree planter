@@ -1,0 +1,40 @@
+gridSizeX = 4
+gridSizeY = 4
+
+
+
+def reset():
+	if get_pos_x() != 0:
+		clear()
+		for i in range(gridSizeX - 1):
+			move(North)
+	elif get_pos_y() != 3:
+		clear()
+		for i in range(gridSizeY - 1):
+			move(North)
+
+reset()
+
+while True:
+	for i in range(gridSizeX):
+		for j in range(gridSizeY):
+			move(North)
+			if get_pos_x() % 2 == 0 and get_pos_y() % 2 == 0:
+				if can_harvest():
+					harvest()
+					plant(Entities.Tree)
+				elif get_entity_type() == None:
+					plant(Entities.Tree)
+
+			elif get_pos_x() % 2 != 0 and get_pos_y() % 2 != 0:
+				if can_harvest():
+					harvest()
+					plant(Entities.Tree)
+				elif get_entity_type() == None:
+					plant(Entities.Tree)		
+			
+		move(East)
+		
+		
+		
+		
